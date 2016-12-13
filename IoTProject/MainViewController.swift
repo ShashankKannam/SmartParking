@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias completed = () -> ()
+
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
@@ -17,6 +19,40 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
+    
+    @IBAction func refresh(_ sender: Any) {
+       
+        if spots.count>0{
+            spots = nil
+            openSpots = nil
+            closedSpots = nil
+            downloadSpots {
+                self.tableView.reloadData()
+            }
+        }
+        
+    }
+  
+  
+    @IBAction func refreshButton(_ sender: Any) {
+        
+        if spots.count>0{
+            spots = nil
+            openSpots = nil
+            closedSpots = nil
+            downloadSpots {
+                self.tableView.reloadData()
+            }
+        }
+        else{
+            downloadSpots {
+                self.tableView.reloadData()
+            }
+        }
+
+    }
+    
     
     
     
@@ -32,7 +68,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private var filteredClosedSpots:[Spot]!
     
-      private var spotNames:[String] = ["Parking Slot A","Parking Slot B","Parking Slot C","Parking Slot D", "Parking Slot E"]
+      private var spotNames:[String] = ["Parking Slot 1","Parking Slot 2","Parking Slot 3","Parking Slot 4", "Parking Slot 5"]
     
      private var spotStatus:[String] = ["Closed","Closed","Closed","Closed","Closed"]
     
@@ -52,17 +88,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         
    // var k = Timer.scheduledTimer(timeInterval: 50, target: self, selector: "downloadSpots", userInfo: nil, repeats: true)
+        self.hideKeyboardWhenTappedAround()
         
         selectedSpot = Spot(spotNameI: "", spotStatusI: "")
+
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.returnKeyType = UIReturnKeyType.done
-        downloadSpots()
-        //spots.append(Spot(spotNameI: "", spotStatusI: ""))
-        //closedSpots.append(Spot(spotNameI: "", spotStatusI: ""))
-        //openSpots.append(Spot(spotNameI: "", spotStatusI: ""))
-
+        downloadSpots { 
+            tableView.reloadData()
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -94,16 +130,20 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             inSearchMode = true
             let lower = searchBar.text!.lowercased()
             if segmentedControl.selectedSegmentIndex == 0{
-                openSpots = openSpots.filter({($0.spotName.range(of: lower) != nil)})
+                filteredOpenSpots = openSpots.filter({($0.spotName.range(of: lower) != nil)})
             }
             else if segmentedControl.selectedSegmentIndex == 1{
-                spots = spots.filter({($0.spotName.range(of: lower) != nil)})
+                filteredSpots = spots.filter({($0.spotName.range(of: lower) != nil)})
             }
             else{
-                closedSpots = closedSpots.filter({($0.spotName.range(of: lower) != nil)})
+                filteredClosedSpots = closedSpots.filter({($0.spotName.range(of: lower) != nil)})
             }
             tableView.reloadData()
+//            print("filtered spots and normal count")
+//            print(filteredSpots.count)
+//            print(spots.count)
         }
+    
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -114,7 +154,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if segmentedControl.selectedSegmentIndex == 0{
             if inSearchMode{
-                return openSpots.count
+                return filteredOpenSpots.count
                 
             }else{
                 
@@ -122,14 +162,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }else if segmentedControl.selectedSegmentIndex == 1{
             if inSearchMode{
-                return spots.count
+                return filteredSpots.count
             }else{
                 
                 return spots.count
             }
         }else{
             if inSearchMode{
-                return closedSpots.count
+                return filteredClosedSpots.count
                 
             }else{
                 
@@ -147,7 +187,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             if segmentedControl.selectedSegmentIndex == 0{
                 if inSearchMode{
-                    let spotF = openSpots[indexPath.row]
+                    let spotF = filteredOpenSpots[indexPath.row]
                     cell.updateUI(spot: spotF)
                 }else{
                     let spot = openSpots[indexPath.row]
@@ -157,7 +197,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
             } else if segmentedControl.selectedSegmentIndex == 1{
                 if inSearchMode{
-                    let spotA = spots[indexPath.row]
+                    let spotA = filteredSpots[indexPath.row]
                     cell.updateUI(spot: spotA)
                 }else{
                     let spot = spots[indexPath.row]
@@ -169,7 +209,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             else{
                 if inSearchMode{
-                    let spotC = closedSpots[indexPath.row]
+                    let spotC = filteredClosedSpots[indexPath.row]
                     cell.updateUI(spot: spotC)
                 }else{
                     
@@ -197,34 +237,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
              selectedSpot = Spot(spotNameI: spotNames[indexPath.row], spotStatusI: spotStatus[indexPath.row])
     }
-    
-    
-    
-    //
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segmentedControl.selectedSegmentIndex == 0{
-    //        if segue.identifier == "chatVC"{
-    //            if let dest = segue.destination as? ChatViewController{
-    //                if let present = sender as? User{
-    //                    dest.selectedUser = present
-    //                }
-    //            }
-    //        }
-    //        }else{
-    //            if segue.identifier == "chatVC"{
-    //                if let dest = segue.destination as? ChatViewController{
-    //                    if let present = sender as? GroupContacts{
-    //                        dest.selectedGroup = present
-    //                    }
-    //                }
-    //            }
-    //
-    //        }
-    //    }
-    
    
-    func downloadSpots(){
-        
+   
+    func downloadSpots(completed: completed){
+  
+       // DispatchQueue.global().async {
+        //    <#code#>
+       // }
         spots = [Spot]()
         openSpots = [Spot]()
         closedSpots = [Spot]()
@@ -292,5 +311,19 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         task.resume()
         self.tableView.reloadData()
+        completed()
+        
 }
+}
+
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
