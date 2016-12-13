@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		F52AD6E21DFEED63006543D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52AD6E11DFEED63006543D7 /* AppDelegate.swift */; };
-		F52AD6E41DFEED63006543D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52AD6E31DFEED63006543D7 /* ViewController.swift */; };
 		F52AD6E71DFEED63006543D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F52AD6E51DFEED63006543D7 /* Main.storyboard */; };
 		F52AD6E91DFEED63006543D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F52AD6E81DFEED63006543D7 /* Assets.xcassets */; };
 		F52AD6EC1DFEED63006543D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F52AD6EA1DFEED63006543D7 /* LaunchScreen.storyboard */; };
+		F52AD6F41DFEEF86006543D7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52AD6F31DFEEF86006543D7 /* MainViewController.swift */; };
+		F52AD6F91DFF0682006543D7 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52AD6F81DFF0682006543D7 /* Spot.swift */; };
+		F52AD6FB1DFF0DC7006543D7 /* SpotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52AD6FA1DFF0DC7006543D7 /* SpotCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F52AD6DE1DFEED63006543D7 /* IoTProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IoTProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F52AD6E11DFEED63006543D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F52AD6E31DFEED63006543D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F52AD6E61DFEED63006543D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F52AD6E81DFEED63006543D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F52AD6EB1DFEED63006543D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F52AD6ED1DFEED63006543D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F52AD6F31DFEEF86006543D7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		F52AD6F81DFF0682006543D7 /* Spot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
+		F52AD6FA1DFF0DC7006543D7 /* SpotCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +58,40 @@
 		F52AD6E01DFEED63006543D7 /* IoTProject */ = {
 			isa = PBXGroup;
 			children = (
+				F52AD6F51DFEF41B006543D7 /* Model */,
+				F52AD6F61DFEF422006543D7 /* View */,
+				F52AD6F71DFEF42B006543D7 /* Controller */,
 				F52AD6E11DFEED63006543D7 /* AppDelegate.swift */,
-				F52AD6E31DFEED63006543D7 /* ViewController.swift */,
 				F52AD6E51DFEED63006543D7 /* Main.storyboard */,
 				F52AD6E81DFEED63006543D7 /* Assets.xcassets */,
 				F52AD6EA1DFEED63006543D7 /* LaunchScreen.storyboard */,
 				F52AD6ED1DFEED63006543D7 /* Info.plist */,
 			);
 			path = IoTProject;
+			sourceTree = "<group>";
+		};
+		F52AD6F51DFEF41B006543D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F52AD6F81DFF0682006543D7 /* Spot.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F52AD6F61DFEF422006543D7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F52AD6FA1DFF0DC7006543D7 /* SpotCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		F52AD6F71DFEF42B006543D7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F52AD6F31DFEEF86006543D7 /* MainViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,8 +166,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F52AD6E41DFEED63006543D7 /* ViewController.swift in Sources */,
 				F52AD6E21DFEED63006543D7 /* AppDelegate.swift in Sources */,
+				F52AD6F91DFF0682006543D7 /* Spot.swift in Sources */,
+				F52AD6F41DFEEF86006543D7 /* MainViewController.swift in Sources */,
+				F52AD6FB1DFF0DC7006543D7 /* SpotCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
