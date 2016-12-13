@@ -12,6 +12,8 @@ typealias completed = () -> ()
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
+    var buttonCount = 0
+    
     @IBOutlet weak var tableView: UITableView!
     
     
@@ -36,11 +38,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
   
   
     @IBAction func refreshButton(_ sender: Any) {
+      
+        buttonCount += 1
+        
+        if buttonCount == 1{
         
         if spots.count>0{
-            spots = nil
-            openSpots = nil
-            closedSpots = nil
+            
+            spots = [Spot]()
+            openSpots = [Spot]()
+            closedSpots = [Spot]()
+            
             downloadSpots {
                 self.tableView.reloadData()
             }
@@ -48,9 +56,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         else{
             downloadSpots {
                 self.tableView.reloadData()
+                //ActivitySpinner.hide()
             }
         }
-
+        }else{
+            buttonCount = 0
+        }
     }
     
     
@@ -81,6 +92,18 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
 // var timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: Selector("downloadSpots"), userInfo: nil, repeats: true)
+   
+    
+    override func viewDidAppear(_ animated: Bool) {
+        ActivitySpinner.show("Please Wait...", disableUI: true)
+        if spots.count > 0{
+            self.downloadSpots {
+            }
+             ActivitySpinner.hide()
+        }
+    }
+    
+    
     
 
     
@@ -104,11 +127,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     @IBAction func segmentTapped(_ sender: UISegmentedControl) {
-//        spots.removeAll()
-//        openSpots.removeAll()
-//        closedSpots.removeAll()
         self.tableView.reloadData()
-       // downloadSpots()
     }
     
     
@@ -240,10 +259,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
    
    
     func downloadSpots(completed: completed){
-  
-       // DispatchQueue.global().async {
-        //    <#code#>
-       // }
+      
+       // ActivitySpinner.show("", disableUI: true)
+        
         spots = [Spot]()
         openSpots = [Spot]()
         closedSpots = [Spot]()
@@ -299,6 +317,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     print(self.openSpots.count)
                     print(self.spots.count)
                     print(self.closedSpots.count)
+                    ActivitySpinner.hide()
                     
                 }catch {
                     print("Error with Json: \(error)")
@@ -307,15 +326,20 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             else{
                 print("error here is : \(statusCode)")
+                ActivitySpinner.hide()
+                let alert = UIAlertController(title: "Sorry, Can't connect to internet", message: "Please try again later", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
         task.resume()
         self.tableView.reloadData()
+        ActivitySpinner.hide()
         completed()
         
 }
+    
 }
-
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {

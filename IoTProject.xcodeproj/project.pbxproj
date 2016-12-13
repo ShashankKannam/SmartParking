@@ -14,6 +14,7 @@
 		F52AD6F41DFEEF86006543D7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52AD6F31DFEEF86006543D7 /* MainViewController.swift */; };
 		F52AD6F91DFF0682006543D7 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52AD6F81DFF0682006543D7 /* Spot.swift */; };
 		F52AD6FB1DFF0DC7006543D7 /* SpotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52AD6FA1DFF0DC7006543D7 /* SpotCell.swift */; };
+		F5CF44351E0063B2004D4BB5 /* ActivitySpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CF44341E0063B2004D4BB5 /* ActivitySpinner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		F52AD6F31DFEEF86006543D7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F52AD6F81DFF0682006543D7 /* Spot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		F52AD6FA1DFF0DC7006543D7 /* SpotCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotCell.swift; sourceTree = "<group>"; };
+		F5CF44341E0063B2004D4BB5 /* ActivitySpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitySpinner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				F52AD6FA1DFF0DC7006543D7 /* SpotCell.swift */,
+				F5CF44341E0063B2004D4BB5 /* ActivitySpinner.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 			files = (
 				F52AD6E21DFEED63006543D7 /* AppDelegate.swift in Sources */,
 				F52AD6F91DFF0682006543D7 /* Spot.swift in Sources */,
+				F5CF44351E0063B2004D4BB5 /* ActivitySpinner.swift in Sources */,
 				F52AD6F41DFEEF86006543D7 /* MainViewController.swift in Sources */,
 				F52AD6FB1DFF0DC7006543D7 /* SpotCell.swift in Sources */,
 			);
@@ -331,6 +335,7 @@
 				F52AD6F21DFEED63006543D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

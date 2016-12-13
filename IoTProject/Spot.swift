@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Spot{
+class Spot{
     
     private var _spotName:String = ""
     
