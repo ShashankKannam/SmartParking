@@ -1,7 +1,6 @@
 //
 //  MainViewController.swift
 //  IoTProject
-//
 //  Created by Project NMWSU on 12/12/16.
 //  Copyright © 2016 Project NMWSU. All rights reserved.
 //
@@ -13,6 +12,8 @@ typealias completed = () -> ()
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     var buttonCount = 0
+
+
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -22,20 +23,37 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    
-    @IBAction func refresh(_ sender: Any) {
-       
-        if spots.count>0{
-            spots = nil
-            openSpots = nil
-            closedSpots = nil
-            downloadSpots {
-                self.tableView.reloadData()
-            }
-        }
+    @IBAction func secretRefresh(_ sender: UIButton) {
         
+        
+        print("clicked secret button")
+        
+        buttonCount += 1
+        
+        if buttonCount == 1{
+            
+            if spots.count>0{
+                
+                
+                spots = [Spot]()
+                openSpots = [Spot]()
+                closedSpots = [Spot]()
+                
+                downloadSpots {
+                    self.tableView.reloadData()
+                }
+            }
+            else{
+                downloadSpots {
+                    self.tableView.reloadData()
+                    //ActivitySpinner.hide()
+                }
+            }
+        }else{
+            buttonCount = 0
+        }
     }
-  
+
   
     @IBAction func refreshButton(_ sender: Any) {
       
@@ -45,6 +63,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if spots.count>0{
             
+
             spots = [Spot]()
             openSpots = [Spot]()
             closedSpots = [Spot]()
@@ -109,8 +128,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-   // var k = Timer.scheduledTimer(timeInterval: 50, target: self, selector: "downloadSpots", userInfo: nil, repeats: true)
         self.hideKeyboardWhenTappedAround()
         
         selectedSpot = Spot(spotNameI: "", spotStatusI: "")
@@ -125,7 +142,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Do any additional setup after loading the view.
     }
     
-    
+ 
     @IBAction func segmentTapped(_ sender: UISegmentedControl) {
         self.tableView.reloadData()
     }
@@ -291,6 +308,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                             if spotStatusZ == 0{
                             self.spotStatus[0] = "Available"
                         }
+                            else{
+                                self.spotStatus[0] = "Closed"
+                            }
+   
                             for i in 0..<5{
                                 self.spots.append(Spot(spotNameI: self.spotNames[i], spotStatusI: self.spotStatus[i]))
                             }
@@ -317,6 +338,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     print(self.openSpots.count)
                     print(self.spots.count)
                     print(self.closedSpots.count)
+                    print("done downloading intial data")
                     ActivitySpinner.hide()
                     
                 }catch {
@@ -336,9 +358,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.reloadData()
         ActivitySpinner.hide()
         completed()
-        
 }
-    
+ 
 }
 
 extension UIViewController {
