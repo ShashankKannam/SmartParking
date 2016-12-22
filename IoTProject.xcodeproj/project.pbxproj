@@ -129,6 +129,7 @@
 				TargetAttributes = {
 					F52AD6DD1DFEED63006543D7 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 3777KUBFEB;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -296,6 +297,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3777KUBFEB;
 				INFOPLIST_FILE = IoTProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = IoTProject.IoTProject;
@@ -308,6 +310,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3777KUBFEB;
 				INFOPLIST_FILE = IoTProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = IoTProject.IoTProject;
